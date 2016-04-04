@@ -12,6 +12,7 @@
       'client_id' => $config['client_id'],
       'client_secret' => $config['client_secret'],
       'code' => $_GET['code'],
+      'redirect_uri' => $config['redirect_uri'],
       );
 
     $resp = curl_call('https://slack.com/api/oauth.access', $params);
@@ -50,4 +51,4 @@
 ?>
 <h1>Too many files on Slack?</h1>
 <p>Help your team to clean the things up by deleting older files.</p>
-<a href="https://slack.com/oauth/authorize?client_id=<?php echo $config['client_id'] ?>&scope=<?php echo $config['scope'] ?>&state=linked">Login to Slack</a>
+<a href="https://slack.com/oauth/authorize?client_id=<?php echo $config['client_id'] ?>&scope=<?php echo $config['scope'] ?>&redirect_uri=<?php echo $config['redirect_uri'] ?>&state=linked">Login to Slack</a>

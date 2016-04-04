@@ -2,5 +2,6 @@
   return array(
     'client_id' => '',
     'client_secret' => '',
-    'scope' => 'files:write:user+files:read+users:read+identify'
+    'scope' => 'files:write:user+files:read+users:read+identify',
+    'redirect_uri' => '',
     );
