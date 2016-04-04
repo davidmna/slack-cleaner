@@ -7,7 +7,7 @@
     foreach ($_POST['deletefiles'] as $file_id) {
       $params = array('token' => $_SESSION['slack_access_token'], 'file' => $file_id);
       curl_call('https://slack.com/api/files.delete', $params);
-      break;
+      //break;
     }
   }
 
