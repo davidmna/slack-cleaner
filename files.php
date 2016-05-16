@@ -96,7 +96,7 @@ while(true) {
       $('#table_files > tbody  > tr').each(function() {
         var file_id = $(this).attr('id');
         
-        $.ajax("/deletefile.php?id="+file_id)
+        $.ajax("deletefile.php?id="+file_id)
           .done(function(data) {
             if(data.ok) {
               $('table#table_files tr#'+file_id).remove();
