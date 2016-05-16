@@ -1,7 +1,7 @@
 <?php
   require_once './sessions.php';
   require_once './curl.php';
-
+  /*
   if(!empty($_POST['deletefiles'])) {
     //echo "<pre>".print_r($_POST, true)."</pre>";
     foreach ($_POST['deletefiles'] as $file_id) {
@@ -10,7 +10,7 @@
       //break;
     }
   }
-
+  */
   $files = null;
   $total_size = 0;
 ?>
@@ -51,9 +51,10 @@ while(true) {
 
 <?php if(!empty($files)): $files = array_reverse($files); ?>
 <?php echo count($files);?> files older than 15 days. Total size: <?php echo formatSizeUnits($total_size); ?>
-<form name="filestodelete" id="filestodelete" method="POST" action="" onsubmit="return confirm('Do you really want to delete all these files?');">
-<p><input type="submit" value="Delete all"/></p>
-<table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<form name="filestodelete" id="filestodelete" method="POST" action="">
+<p><input type="submit" value="Delete all" id="delete-btn"/><span id="deleting-msg" style="margin-left: 8px; display: none">Deleting...</span></p>
+<table id="table_files">
   <thead>
     <tr>
       <th>File</th>
@@ -77,7 +78,41 @@ while(true) {
 <?php else: ?>
 <p>All clear.</p>
 <?php endif; ?>
+<script type="text/javascript">
 
+  $.fn.extend({
+    delayedAjax: function() {
+      setTimeout ($.ajax, 1000 );
+    }
+  });
+
+  $.fn.delayedAjax();
+
+  $('#delete-btn').click(function(e){
+    if(confirm('Do you really want to delete all these files?')) {
+      $('#deleting-msg').show();
+      $('#delete-btn').prop('disabled', true);
+      var files_count = $('#table_files > tbody  > tr').length;
+      $('#table_files > tbody  > tr').each(function() {
+        var file_id = $(this).attr('id');
+        
+        $.ajax("/deletefile.php?id="+file_id)
+          .done(function(data) {
+            if(data.ok) {
+              $('table#table_files tr#'+file_id).remove();
+              files_count--;
+            }
+          })
+          .always(function(){
+            if(files_count == 0){
+              location.reload();
+            }
+          });
+      });
+    }
+    e.preventDefault();
+  });
+</script>
 
 <?php
 // Snippet from PHP Share: http://www.phpshare.org
