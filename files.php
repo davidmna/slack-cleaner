@@ -79,15 +79,6 @@ while(true) {
 <p>All clear.</p>
 <?php endif; ?>
 <script type="text/javascript">
-
-  $.fn.extend({
-    delayedAjax: function() {
-      setTimeout ($.ajax, 1000 );
-    }
-  });
-
-  $.fn.delayedAjax();
-
   $('#delete-btn').click(function(e){
     if(confirm('Do you really want to delete all these files?')) {
       $('#deleting-msg').show();
