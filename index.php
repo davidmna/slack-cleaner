@@ -52,3 +52,12 @@
 <h1>Too many files on Slack?</h1>
 <p>Help your team to clean the things up by deleting older files.</p>
 <a href="https://slack.com/oauth/authorize?client_id=<?php echo $config['client_id'] ?>&scope=<?php echo $config['scope'] ?>&redirect_uri=<?php echo $config['redirect_uri'] ?>&state=linked">Login to Slack</a>
+<br><br><hr>
+<h1>Stop the paranoia!</h1>
+<p>
+  I never created this tool to do any harm or steal any data. 
+  I'm working in an static app that does not require for a third-party server,
+  but while this happens and if it makes you feel better, you can always clone the project 
+  repo and run this in a server of your own.
+</p>
+<p><a href="https://github.com/dmoralesm/slack-cleaner" target="_blank">Cleanslack at GitHub</a></p>
