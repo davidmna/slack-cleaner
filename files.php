@@ -1,16 +1,6 @@
 <?php
   require_once './sessions.php';
   require_once './curl.php';
-  /*
-  if(!empty($_POST['deletefiles'])) {
-    //echo "<pre>".print_r($_POST, true)."</pre>";
-    foreach ($_POST['deletefiles'] as $file_id) {
-      $params = array('token' => $_SESSION['slack_access_token'], 'file' => $file_id);
-      curl_call('https://slack.com/api/files.delete', $params);
-      //break;
-    }
-  }
-  */
   $files = null;
   $total_size = 0;
 ?>
@@ -18,7 +8,6 @@
 <h1>Files</h1>
 
 <?php
-//echo "<pre>".print_r($_SESSION, true)."</pre>";
 
 $params = array(
   'token' => $_SESSION['slack_access_token'],
@@ -33,7 +22,6 @@ if (!$_SESSION['slack_user_is_admin']) {
 
 while(true) {
   $fileslist = curl_call('https://slack.com/api/files.list', $params);
-  //echo "<pre>".print_r($fileslist, true)."</pre>";
   
   if($fileslist['ok'] && !empty($fileslist['files'])) {
     foreach ($fileslist['files'] as $file) {

@@ -5,9 +5,6 @@
   $config = require_once('config.php');
 
   if(!empty($_GET['code']) && $_GET['state'] == 'linked') {
-    //Ask for auth
-    //echo 'ask for auth';
-
     $params = array(
       'client_id' => $config['client_id'],
       'client_secret' => $config['client_secret'],
@@ -17,9 +14,7 @@
 
     $resp = curl_call('https://slack.com/api/oauth.access', $params);
 
-    //$resp = json_decode($resp, true);
     echo "<pre>".print_r($resp, true)."</pre>";
-    //die;
 
     if($resp['ok']) {
       echo 'save token in session';
@@ -29,8 +24,6 @@
 
       $params = array('token' => $_SESSION['slack_access_token']);
       $auth = curl_call('https://slack.com/api/auth.test', $params);
-      //echo "<pre>".print_r($auth, true)."</pre>";
-
 
       if($auth['ok']) {
         $_SESSION['slack_user'] = $auth['user'];
@@ -38,7 +31,6 @@
 
         $params = array('token' => $_SESSION['slack_access_token'], 'user' => $_SESSION['slack_user_id']);
         $userinfo = curl_call('https://slack.com/api/users.info', $params);
-        //echo "<pre>".print_r($userinfo, true)."</pre>";
 
         if($userinfo['ok']) {
           $_SESSION['slack_user_is_admin'] = ($userinfo['user']['is_admin'] || $userinfo['user']['is_owner']);

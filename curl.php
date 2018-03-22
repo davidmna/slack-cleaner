@@ -7,8 +7,6 @@
       $url.= url_params($params);
     }
 
-    //echo $url;die;
-
     $options = array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_URL => $url,
